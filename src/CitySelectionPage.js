@@ -5,7 +5,7 @@ import "./CitySelectionPage.css";
 const CitySelectionPage = () => {
   const [cities, setCities] = useState([]);
   const [cops, setCops] = useState([]);
-  const link = 'https://find-the-fugitive-server.onrender.com';
+  const link = "https://find-the-fugitive-server.onrender.com";
   const fetchCities = async () => {
     const response = await fetch(`${link}/cities`);
     const data = await response.json();
@@ -30,19 +30,23 @@ const CitySelectionPage = () => {
     setSelectedCities((prevSelectedCities) => {
       const updatedSelectedCities = { ...prevSelectedCities };
       if (!updatedSelectedCities[cop_name]) {
-        let checkInd = Object.entries(updatedSelectedCities).findIndex(([key,value])=>value === cityName)
-        if (checkInd === -1) {
-          updatedSelectedCities[cop_name] = cityName;
-        }else {
-          alert("Invalid Selection! city selected for other cop")
-        }
-      } else {
-        alert("you have already made selection for this cop")
-        let checkInd = Object.entries(updatedSelectedCities).findIndex(([key,value])=>value === cityName)
+        let checkInd = Object.entries(updatedSelectedCities).findIndex(
+          ([key, value]) => value === cityName
+        );
         if (checkInd === -1) {
           updatedSelectedCities[cop_name] = cityName;
         } else {
-          alert("city selected for other cop")
+          alert("Invalid Selection! city selected for other cop");
+        }
+      } else {
+        alert("you have already made selection for this cop");
+        let checkInd = Object.entries(updatedSelectedCities).findIndex(
+          ([key, value]) => value === cityName
+        );
+        if (checkInd === -1) {
+          updatedSelectedCities[cop_name] = cityName;
+        } else {
+          alert("city selected for other cop");
         }
       }
       return updatedSelectedCities;
@@ -67,41 +71,48 @@ const CitySelectionPage = () => {
         <div className="city-selection-page">
           <h2>City Selection</h2>
           <div className="cop-city-selection">
-            {cops &&
-              cops.map((cop, index) => (
-                <div key={index} className="cop-container">
-                  <h2 className="cop-title">Select City for Cop {cop.name}</h2>
-                  <div className="city-selection">
-                    {cities.map((city) => (
-                      <div
-                        className={`city-card ${
-                          selectedCities &&
-                          selectedCities[cop.name] === city.name
-                            ? "selected"
-                            : ""
-                        }`}
-                        key={city.id}
-                        onClick={() => handleCitySelect(cop.name, city.name)}
-                      >
-                        <h3>{city.name}</h3>
-                        <p>{city.description}</p>
-                        <button
-                          className="select-button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleCitySelect(cop.name, city.name);
+            {cops && cops.length
+              ? cops.map((cop, index) => (
+                  <div key={index} className="cop-container">
+                    <h2 className="cop-title">
+                      Select City for Cop {cop.name}
+                    </h2>
+                    <div className="city-selection">
+                      {cities.map((city) => (
+                        <div
+                          className={`city-card ${
+                            selectedCities &&
+                            selectedCities[cop.name] === city.name
+                              ? "selected"
+                              : ""
+                          }`}
+                          key={city.name + index}
+                          onClick={() => handleCitySelect(cop.name, city.name)}
+                          style={{
+                            backgroundImage: `url(${city.link})`,
+                            zIndex: 1,
                           }}
                         >
-                          {selectedCities &&
-                          selectedCities[cop.name] === city.name
-                            ? "Selected"
-                            : "Select"}
-                        </button>
-                      </div>
-                    ))}
+                          <h3>{city.name}</h3>
+                          <p>{city.description}</p>
+                          <button
+                            className="select-button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleCitySelect(cop.name, city.name);
+                            }}
+                          >
+                            {selectedCities &&
+                            selectedCities[cop.name] === city.name
+                              ? "Selected"
+                              : "Select"}
+                          </button>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))
+              : "Loading..."}
           </div>
           <button
             className="next-button"
@@ -111,7 +122,9 @@ const CitySelectionPage = () => {
           </button>
         </div>
       )}
-      {next && <VehicleSelectionPage selectedCities={selectedCities} cops={cops} />}
+      {next && (
+        <VehicleSelectionPage selectedCities={selectedCities} cops={cops} />
+      )}
     </>
   );
 };

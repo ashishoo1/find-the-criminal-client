@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-
+import "./ResultPage.css";
 const ResultPage = (props) => {
   const [captureResult, setCaptureResult] = useState("");
   const link = 'https://find-the-fugitive-server.onrender.com';
@@ -35,10 +35,18 @@ const ResultPage = (props) => {
   console.log(captureResult)
   return (
     <>
-    {captureResult && captureResult.capturingCop && <div>
-      <h2>Result</h2>
-      <p>{captureResult.capturingCop.name} caught the fugitive</p>
-    </div>}
+    <div className="result-container">
+      <h2 className="result-heading">Result</h2>
+      {captureResult && captureResult.success && captureResult.capturingCop ? (
+        <div className="result-success">
+          <p className="result-message">{captureResult.capturingCop.name} caught the fugitive!</p>
+        </div>
+      ) : captureResult && !captureResult.success && (
+        <div className="result-failure">
+          <p className="result-message">No cop was able to capture the fugitive.</p>
+        </div>
+      )}
+    </div>
     </>
   );
 };

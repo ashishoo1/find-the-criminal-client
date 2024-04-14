@@ -1,4 +1,5 @@
 import React from "react";
+import "./CopVehicleCard.css"
 
 const CopVehicleCard = ({ copName, vehicles, onSelect }) => {
   return (

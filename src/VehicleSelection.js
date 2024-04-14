@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import CopVehicleCard from "./CopVehicleCard";
 import ResultPage from "./ResultPage";
+import "./VehicleSelection.css";
 
 const VehicleSelectionPage = (props) => {
   const [selectedVehicles, setSelectedVehicles] = useState([]);
@@ -51,7 +52,7 @@ const VehicleSelectionPage = (props) => {
       <h2>Select Vehicle Options for Each Cop</h2>
       <div className="cop-vehicle-selection">
         <div className="cop-vehicle-selection">
-          {props.cops &&
+          {vehicles && vehicles.length && props.cops ?
             props.cops.map((cop, index) => (
               <div key={index} className="cop-container">
                 <div className="vehicle-selection">
@@ -65,10 +66,10 @@ const VehicleSelectionPage = (props) => {
                   />
                 </div>
               </div>
-            ))}
+            )) : "Loading..."}
         </div>
       </div>
-      <button onClick={handleNextClick}>Next</button>
+      <button className="next-button" onClick={handleNextClick}>Next</button>
     </div>}
     {next && <ResultPage cops={props.cops} selectedCities = {props.selectedCities} selectedVehicles={selectedVehicles} />}
     </>

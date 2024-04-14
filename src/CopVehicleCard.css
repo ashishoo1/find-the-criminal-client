@@ -1,0 +1,34 @@
+.cop-vehicle-card {
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .cop-vehicle-card h3 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  .cop-vehicle-card select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .cop-vehicle-card select option {
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .cop-vehicle-card select option[disabled] {
+    color: #999;
+  }
+  
